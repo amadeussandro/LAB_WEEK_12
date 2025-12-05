@@ -1,15 +1,14 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    kotlin("kapt")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = "com.example.test_lab_week_12"
+    namespace = "com.example.lab_week_13"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.test_lab_week_12"
+        applicationId = "com.example.lab_week_13"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -23,10 +22,15 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-android-optimize.txt"
             )
         }
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -37,25 +41,5 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.recyclerview)
-    implementation(libs.glide)
-    implementation(libs.retrofit)
-    implementation(libs.converter.moshi)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    kapt(libs.moshi.kotlin.codegen)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.moshi.kotlin)
-    kapt(libs.moshi.kotlin.codegen)
+    // Tambahkan dependency kamu di sini
 }
