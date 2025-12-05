@@ -11,7 +11,7 @@ class MovieRepository(private val movieService: MovieService) {
 
     private val apiKey = "2e0ad11e01306135bf9a164898a6d4cd"
 
-    // Flow version (no more LiveData)
+    // fetch movies using Flow
     fun fetchMovies(): Flow<List<Movie>> {
         return flow {
             emit(movieService.getPopularMovies(apiKey).results)

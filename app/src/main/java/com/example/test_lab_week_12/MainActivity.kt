@@ -2,9 +2,9 @@ package com.example.test_lab_week_12
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
@@ -30,26 +30,19 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = movieAdapter
 
         val movieRepository = (application as MovieApplication).movieRepository
+        val movieViewModel = MovieViewModel(movieRepository)
 
-        val movieViewModel = ViewModelProvider(
-            this,
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return MovieViewModel(movieRepository) as T
-                }
-            }
-        )[MovieViewModel::class.java]
-
-        // 🔥 Flow collecting
         lifecycleScope.launch {
-            repeatOnLifecycle(androidx.lifecycle.Lifecycle.State.STARTED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
 
+                // collect movie data
                 launch {
                     movieViewModel.popularMovies.collect { movies ->
                         movieAdapter.addMovies(movies)
                     }
                 }
 
+                // collect error
                 launch {
                     movieViewModel.error.collect { error ->
                         if (error.isNotEmpty()) {
@@ -57,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
         }
     }
