@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 
 class DetailsActivity : AppCompatActivity() {
-    /SD
+
     companion object {
         const val EXTRA_TITLE = "title"
         const val EXTRA_RELEASE = "release"
